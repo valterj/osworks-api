@@ -1,0 +1,21 @@
+version: '3.4'
+services:
+  osworks-api:
+    image: valterz/osworks-api
+    restart: always
+    build: ./osworks-api
+    working_dir: /osworks-api
+    environment:
+      TZ: America/Sao_Paulo
+      SPRING_BOOT_ENVIRONMENT: Production
+    volumes:
+      - ./osworks-api:/osworks-api
+      - ~/.m2:/root/.m2
+    ports:
+      - "8080:8080"
+    command: mvn clean spring-boot:run
+    networks:
+      - alga-network
+networks:
+    alga-network:
+        driver: bridge
